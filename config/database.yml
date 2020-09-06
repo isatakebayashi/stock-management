@@ -8,12 +8,12 @@ default: &default
 
 development:
   <<: *default
-  database: store-stock-management_development
+  database: stock-management_development
 
 test:
   <<: *default
-  database: store-stock-management_test
+  database: stock-management_test
 
 production:
   <<: *default
-  database: store-stock-management_production
+  database: stock-management_production
