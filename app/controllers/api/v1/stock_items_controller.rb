@@ -13,7 +13,6 @@ module Api
 
       def create
         @stock_item = StockItem.new(stock_items_params)
-
         if @stock_item.save
           render json: { message: 'Estoque criado!', data: @stock_item }, status: :ok
         else
@@ -47,7 +46,7 @@ module Api
       end
 
       def not_found
-        render json: { status: 'Produto ou loja não encontrados' }, status: :unprocessable_entity
+        render json: { status: 'Produto ou loja não encontrados' }, status: :not_found
       end
 
       def stock_items_params

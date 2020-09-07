@@ -45,8 +45,10 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 
   describe 'GET /api/v1/products/:id' do
     context 'when product is founded' do
+      let(:product) { create(:product) }
+
       it 'returns 200' do
-        params = { id: 'ABC1234567' }
+        params = { id: product.id }
 
         get :show, params: params
         expect(response.status).to eq(200)
@@ -66,6 +68,10 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
   describe 'GET /api/v1/products' do
     context 'when exists products' do
       let(:resp_body) { JSON.parse(response.body) }
+
+      before do
+        create(:product)
+      end
 
       it 'returns a list of products' do
         get :index
@@ -95,7 +101,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 
       let(:update_params) do
         {
-          id: product.sku,
+          id: product.id,
           product: {
             name: 'new name'
           }
@@ -131,10 +137,10 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 
   describe 'DELETE /api/v1/products/:id' do
     context 'when product is founded' do
-      let(:product) { FactoryBot.create(:product) }
+      let(:product) { create(:product) }
 
       it 'delete the product' do
-        params = { id: product.sku }
+        params = { id: product.id }
 
         delete :destroy, params: params, format: :json
 

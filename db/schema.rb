@@ -10,47 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_01_004911) do
+ActiveRecord::Schema.define(version: 20200901004911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "addresses", id: :serial, force: :cascade do |t|
-    t.string "street"
-    t.integer "number"
-    t.string "neighborhood"
-    t.string "city"
-    t.string "state"
-    t.string "zip"
-    t.integer "store_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["store_id"], name: "index_addresses_on_store_id"
+  create_table "addresses", force: :cascade do |t|
+    t.string   "street"
+    t.integer  "number"
+    t.string   "neighborhood"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.integer  "store_id",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["store_id"], name: "index_addresses_on_store_id", using: :btree
   end
 
-  create_table "products", id: :serial, force: :cascade do |t|
-    t.string "name", null: false
-    t.float "cost_price", null: false
-    t.string "sku", limit: 10
+  create_table "products", force: :cascade do |t|
+    t.string   "sku",        null: false
+    t.string   "name",       null: false
+    t.float    "cost_price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["sku"], name: "index_products_on_sku", unique: true
   end
 
-  create_table "stock_items", id: :serial, force: :cascade do |t|
-    t.integer "store_id", null: false
-    t.integer "product_id", null: false
-    t.integer "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_stock_items_on_product_id"
-    t.index ["store_id"], name: "index_stock_items_on_store_id"
+  create_table "stock_items", force: :cascade do |t|
+    t.integer  "store_id",               null: false
+    t.integer  "product_id",             null: false
+    t.integer  "amount",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["product_id"], name: "index_stock_items_on_product_id", using: :btree
+    t.index ["store_id"], name: "index_stock_items_on_store_id", using: :btree
   end
 
-  create_table "stores", id: :serial, force: :cascade do |t|
+  create_table "stores", force: :cascade do |t|
     t.string "name", null: false
     t.string "cnpj", null: false
-    t.bigint "store_id"
   end
 
   add_foreign_key "addresses", "stores"
