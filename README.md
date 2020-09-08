@@ -12,14 +12,14 @@
 
 ## Setting up the project
 
-Make sure you have installed all dependencies and then run `docker-compose up`
+Run `docker-compose up`
 
 ## Running tests
-To run specs, use: `docker-compose run app rspec`
+To run specs  `docker-compose run app rspec`
 
 ## Project URL
 
-Project runs on `localhost:3000`. You can change this by editing
+Project runs on `localhost:3000`. You can change this editing
 `docker-compose.yml` file.
 
 ## Running local
